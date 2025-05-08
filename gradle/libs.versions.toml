@@ -12,6 +12,11 @@ activity = "1.10.1"
 constraintlayout = "2.2.1"
 coroutine = "1.10.1"
 lifecycle ="2.9.0"
+compose = "1.10.1"
+composeUi = "1.8.1"
+composeMaterial = "1.8.1"
+composeUiTooling = "1.8.1"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,7 +29,16 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 android-coroutines = {group = "org.jetbrains.kotlinx", name ="kotlinx-coroutines-android", version.ref = "coroutine"}
 lifecycle = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref ="lifecycle"}
+
+
+compose = { group = "androidx.activity", name ="activity-compose", version.ref ="compose" }
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "composeUi" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "composeMaterial"}
+compose-ui-tooling = { group ="androidx.compose.ui", name = "ui-tooling-preview", version.ref = "composeUiTooling" }
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version = "2.0.0" }
 

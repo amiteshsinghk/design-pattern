@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/custom_text_lifecycle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/compose_view" />
 
     <TextView
         android:id="@+id/custom_text_lifecycle"
@@ -27,4 +27,12 @@
         app:layout_constraintStart_toStartOf="@+id/custom_text"
         app:layout_constraintTop_toBottomOf="@+id/custom_text" />
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/compose_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/custom_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
