@@ -16,11 +16,19 @@ class MainActivity : AppCompatActivity() {
         viewModel.myCustomLiveData.addObserver {
             setTextData(it.toString())
         }
+        viewModel.myCustomLiveDataLifecycle.addObserver(this) {
+            setTextDataLifecycle(it.toString())
+        }
         viewModel.incrementCounter()
     }
 
     fun setTextData(value: String) {
         var textField = findViewById<TextView>(R.id.custom_text)
+        textField.text = value
+    }
+
+    fun setTextDataLifecycle(value: String) {
+        var textField = findViewById<TextView>(R.id.custom_text_lifecycle)
         textField.text = value
     }
 }
