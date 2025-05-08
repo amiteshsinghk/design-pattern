@@ -4,6 +4,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 
+@Suppress("UNCHECKED_CAST")
 class MyCustomLiveData<T> {
 
     private var dataHolder: T? = null
@@ -23,6 +24,55 @@ class MyCustomLiveData<T> {
     }
 }
 
+@Suppress("UNCHECKED_CAST")
+class MyCustomLiveDataLifecycle<T>{
+    private var dataHolder: T? = null
+
+    private var observers = HashMap<(T) -> Unit, LifecycleOwnerWrapper>()
+
+    fun getValue() = dataHolder
+
+    fun setValue(value: T){
+        dataHolder = value
+        observers.forEach { observer, owner ->
+            if (owner.lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)){
+                observer.invoke(dataHolder as T)
+            }
+        }
+    }
+
+    fun addObserver(lifecycleOwner: LifecycleOwner, observer:(T) -> Unit){
+        LifecycleOwnerWrapper(lifecycleOwner, observer).apply {
+            this.lifecycleOwner.lifecycle.addObserver(this)
+            observers[observer] = this
+        }
+    }
+
+    fun notifyObserver(observer: (T) -> Unit){
+        observer.invoke(dataHolder as T)
+    }
+
+    fun removeObserver(observer: (T) -> Unit){
+        observers.remove(observer)
+    }
+
+    inner class LifecycleOwnerWrapper(val lifecycleOwner: LifecycleOwner, val observer: (T) -> Unit): DefaultLifecycleObserver{
+        override fun onStart(owner: LifecycleOwner) {
+            notifyObserver(observer)
+        }
+
+        override fun onResume(owner: LifecycleOwner) {
+            notifyObserver(observer)
+        }
+
+        override fun onDestroy(owner: LifecycleOwner) {
+            removeObserver(observer)
+        }
+
+    }
+}
+
+/*
 class MyCustomLiveDataLifecycle<T> { // created a generic class to hold and distribute the data of type T
     private var dataHolder: T? = null // Holds the current value of the data
     private val observers =
@@ -81,3 +131,42 @@ class MyCustomLiveDataLifecycle<T> { // created a generic class to hold and dist
         }
     }
 }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
