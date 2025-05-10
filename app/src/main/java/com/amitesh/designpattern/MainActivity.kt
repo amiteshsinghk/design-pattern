@@ -1,6 +1,7 @@
 package com.amitesh.designpattern
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import com.amitesh.designpattern.builderPattern.CoilImageLoaderCompose
+import com.amitesh.designpattern.builderPattern.CoilImageLoaderXML
 import com.amitesh.designpattern.builderPattern.UrlComposableBuilder
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
         composeView()
+        loadImage()
         viewModel.myCustomLiveData.addObserver {
             setTextData(it.toString())
         }
@@ -33,6 +36,15 @@ class MainActivity : AppCompatActivity() {
             setTextDataLifecycle(it.toString())
         }
         viewModel.incrementCounter()
+    }
+
+    fun loadImage(){
+        val imageView = findViewById<ImageView>(R.id.image_view)
+        CoilImageLoaderXML
+            .with(this)
+            .load("https://images.tv9marathi.com/wp-content/uploads/2025/05/India-vs-Pakistan-war.jpg")
+            .into(imageView)
+            .build()
     }
 
     fun composeView(){

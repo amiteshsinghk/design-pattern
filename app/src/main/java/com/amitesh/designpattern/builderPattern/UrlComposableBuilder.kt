@@ -7,6 +7,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+
+//In this pattern we are only concerned about what we need from the class and not everything that a class has.
+
+
 //You have a base url, create a builder pattern which take url and return composable function.
 //val imageComposable = UrlComposableBuilder.Builder()
 //                    .setUrl("https://google.com")

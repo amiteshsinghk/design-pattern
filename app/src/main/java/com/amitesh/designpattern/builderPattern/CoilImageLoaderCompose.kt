@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
 
-
+//In this pattern we are only concerned about what we need from the class and not everything that a class has.
 //CoilUrlImageBuilder
 //.Builder()
 //.load("https://images.tv9marathi.com/wp-content/uploads/2025/05/India-vs-Pakistan-war.jpg")
