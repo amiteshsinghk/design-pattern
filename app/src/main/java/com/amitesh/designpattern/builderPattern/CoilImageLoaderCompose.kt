@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
-import coil3.request.placeholder
 
 
 //CoilUrlImageBuilder
@@ -16,7 +15,7 @@ import coil3.request.placeholder
 //.contentDescription("Image")
 //.build()
 //.invoke()
-class CoilUrlImageBuilder{
+class CoilImageLoaderCompose{
 
     class Builder {
         private  var url: String = ""
