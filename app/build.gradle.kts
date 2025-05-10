@@ -59,6 +59,10 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.ui.tooling)
 
+    implementation(libs.coil.compose)
+    implementation(libs.coil)
+    implementation(libs.coil.network)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -16,6 +16,8 @@ compose = "1.10.1"
 composeUi = "1.8.1"
 composeMaterial = "1.8.1"
 composeUiTooling = "1.8.1"
+coil = "3.1.0"
+coilNetwork = "3.1.0"
 
 
 [libraries]
@@ -29,6 +31,11 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 android-coroutines = {group = "org.jetbrains.kotlinx", name ="kotlinx-coroutines-android", version.ref = "coroutine"}
 lifecycle = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref ="lifecycle"}
+
+coil-compose = {group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network = {group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref ="coilNetwork"}
+
+coil = { group = "io.coil-kt.coil3", name ="coil", version.ref ="coil"}
 
 
 compose = { group = "androidx.activity", name ="activity-compose", version.ref ="compose" }
