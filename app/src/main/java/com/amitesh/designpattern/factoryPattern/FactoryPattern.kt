@@ -5,6 +5,10 @@ package com.amitesh.designpattern.factoryPattern
 * Factory takes care of all the object creational logic. In this pattern, a factory class controls
 * which object to instantiate. Factory pattern comes in handy when dealing with many common objects.
 * You can use it where you might not want to specify a concrete class.
+*
+*
+* Factory Pattern is a creational design pattern that provides an interface for creating objects in
+* a superclass but allows subclasses to alter the type of objects that will be created.
 * */
 
 // Create a factory Dialog which return different dialog instance for different error
