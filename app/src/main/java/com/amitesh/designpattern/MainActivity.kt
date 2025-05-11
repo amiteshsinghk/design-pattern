@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ){
                         SetTextUrl()
-                        setImage()
+                        SetImage()
                     }
 
                 }
@@ -81,13 +81,13 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun  SetTextUrl(){
-         val imageComposable = UrlComposableBuilder.Builder()
+         UrlComposableBuilder.Builder()
         .setUrl("https://google.com")
         .build()
-             .invoke()
+        .invoke()
     }
     @Composable
-    fun setImage() {
+    fun SetImage() {
          CoilImageLoaderCompose
             .Builder()
             .load("https://images.tv9marathi.com/wp-content/uploads/2025/05/India-vs-Pakistan-war.jpg")
