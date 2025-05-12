@@ -3,6 +3,7 @@ package com.amitesh.designpattern.observerPattern
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -39,7 +40,7 @@ class MyCustomLiveDataLifecycle<T>{
     fun getValue() = dataHolder
 
     fun setValue(value: T){
-        mainScope.launch{
+        mainScope.launch(Dispatchers.Main.immediate){
             mutex.withLock {
                 dataHolder = value
                 observers.forEach { observer, owner ->
