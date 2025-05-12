@@ -32,16 +32,11 @@ class MyCustomLiveData<T> {
 @Suppress("UNCHECKED_CAST")
 class MyCustomLiveDataLifecycle<T>{
     private var dataHolder: T? = null
-
     private var observers = HashMap<(T) -> Unit, LifecycleOwnerWrapper>()
-
     private var mainScope = MainScope()
-
     private var mutex = Mutex()
 
     fun getValue() = dataHolder
-
-
 
     fun setValue(value: T){
         mainScope.launch{
