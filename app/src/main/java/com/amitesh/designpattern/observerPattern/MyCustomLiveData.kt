@@ -3,6 +3,11 @@ package com.amitesh.designpattern.observerPattern
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 @Suppress("UNCHECKED_CAST")
 class MyCustomLiveData<T> {
@@ -30,30 +35,56 @@ class MyCustomLiveDataLifecycle<T>{
 
     private var observers = HashMap<(T) -> Unit, LifecycleOwnerWrapper>()
 
+    private var mainScope = MainScope()
+
+    private var mutex = Mutex()
+
     fun getValue() = dataHolder
 
+
+
     fun setValue(value: T){
-        dataHolder = value
-        observers.forEach { observer, owner ->
-            if (owner.lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)){
-                observer.invoke(dataHolder as T)
+        mainScope.launch{
+            mutex.withLock {
+                dataHolder = value
+                observers.forEach { observer, owner ->
+                    if (owner.lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                        observer.invoke(dataHolder as T)
+                    }
+                }
             }
         }
     }
 
     fun addObserver(lifecycleOwner: LifecycleOwner, observer:(T) -> Unit){
-        LifecycleOwnerWrapper(lifecycleOwner, observer).apply {
-            this.lifecycleOwner.lifecycle.addObserver(this)
-            observers[observer] = this
+        mainScope.launch{
+            mutex.withLock {
+                LifecycleOwnerWrapper(lifecycleOwner, observer).apply {
+                    this.lifecycleOwner.lifecycle.addObserver(this)
+                    observers[observer] = this
+                }
+            }
         }
     }
 
     fun notifyObserver(observer: (T) -> Unit){
-        observer.invoke(dataHolder as T)
+        mainScope.launch{
+            mutex.withLock{
+                observer.invoke(dataHolder as T)
+            }
+        }
+
     }
 
     fun removeObserver(observer: (T) -> Unit){
-        observers.remove(observer)
+        mainScope.launch{
+            mutex.withLock {
+                observers.remove(observer)
+                mainScope
+            }
+        }.apply {
+            if (isCompleted) mainScope.cancel()
+        }
     }
 
     inner class LifecycleOwnerWrapper(val lifecycleOwner: LifecycleOwner, val observer: (T) -> Unit): DefaultLifecycleObserver{
