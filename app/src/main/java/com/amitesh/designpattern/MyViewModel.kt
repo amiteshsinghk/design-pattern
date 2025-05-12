@@ -2,12 +2,13 @@ package com.amitesh.designpattern
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amitesh.designpattern.manualDi.UserRepository
 import com.amitesh.designpattern.observerPattern.MyCustomLiveData
 import com.amitesh.designpattern.observerPattern.MyCustomLiveDataLifecycle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MyViewModel : ViewModel() {
+class MyViewModel(val userRepository: UserRepository) : ViewModel() {
 
     var counter = 0
     var myCustomLiveData = MyCustomLiveData<Int>()
@@ -22,6 +23,10 @@ class MyViewModel : ViewModel() {
                 delay(1000)
             }
         }
+    }
+
+    fun customDiImplementation(): String{
+        return userRepository.getUser()
     }
 
 

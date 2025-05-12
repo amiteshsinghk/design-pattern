@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,18 +15,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
 import com.amitesh.designpattern.builderPattern.CoilImageLoaderCompose
 import com.amitesh.designpattern.builderPattern.CoilImageLoaderXML
 import com.amitesh.designpattern.builderPattern.UrlComposableBuilder
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MyViewModel
+    private val viewModel: MyViewModel by viewModels{
+        (application as MyApplication).appContainer.provideMainViewModelFactory()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+//        viewModel = ViewModelProvider(this,).get(MyViewModel::class.java)
 
         composeView()
         loadImage()
@@ -36,6 +38,12 @@ class MainActivity : AppCompatActivity() {
             setTextDataLifecycle(it.toString())
         }
         viewModel.incrementCounter()
+        customDiImplementation()
+    }
+
+    fun customDiImplementation(){
+        var textField = findViewById<TextView>(R.id.custom_di_text)
+        textField.text = viewModel.customDiImplementation()
     }
 
     fun loadImage(){
