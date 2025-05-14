@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.amitesh.designpattern.builderPattern.CoilImageLoaderCompose
 import com.amitesh.designpattern.builderPattern.CoilImageLoaderXML
 import com.amitesh.designpattern.builderPattern.UrlComposableBuilder
@@ -59,8 +60,7 @@ class MainActivity : AppCompatActivity() {
         val composeView = findViewById<ComposeView>(R.id.compose_view)
         composeView.setContent {
             MaterialTheme {
-
-
+               
                 Box(modifier = Modifier
                     .size(200.dp)
 
