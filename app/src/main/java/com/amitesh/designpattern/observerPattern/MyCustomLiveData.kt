@@ -76,7 +76,6 @@ class MyCustomLiveDataLifecycle<T>{
         mainScope.launch{
             mutex.withLock {
                 observers.remove(observer)
-                mainScope
             }
         }.apply {
             if (isCompleted) mainScope.cancel()
